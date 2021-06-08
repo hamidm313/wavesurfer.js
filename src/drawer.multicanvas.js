@@ -317,9 +317,10 @@ export default class MultiCanvas extends Drawer {
                     // if (h == 0 && this.params.barMinHeight) {
                     //     h = this.params.barMinHeight;
                     // }
-                    h == Math.max(this.params.barMinHeight, h);
+                    console.log(this.params.barMinHeight + " --> " + h + " ---> " + Math.max(this.params.barMinHeight, h));
 
-                    console.log([this.params.barMinHeight, h]);
+                    h = Math.max(this.params.barMinHeight, Math.abs(h));
+
 
                     this.fillRect(
                         i + this.halfPixel,
