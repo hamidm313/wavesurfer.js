@@ -351,9 +351,6 @@ export default class CanvasEntry {
         for (j; j >= canvasStart; j--) {
             peak = peaks[2 * j + 1] || 0;
             h = Math.round(peak / absmaxHalf);
-            h == Math.max(this.params.barMinHeight, h);
-
-            console.log(h);
             ctx.lineTo((j - first) * scale + this.halfPixel, halfOffset - h);
         }
 
