@@ -32,7 +32,7 @@ export class Region {
         this.isResizing = false;
         this.isDragging = false;
         this.loop = Boolean(params.loop);
-        this.color = params.color || 'rgba(0, 0, 0, 0.1)';
+        this.color = params.color || 'rgba(255, 255, 255, 1)';
         // The left and right handleStyle properties can be set to 'none' for
         // no styling or can be assigned an object containing CSS properties.
         this.handleStyle = params.handleStyle || {
@@ -190,7 +190,7 @@ export class Region {
 
         this.style(this.element, {
             position: 'absolute',
-            zIndex: 2,
+            zIndex: 99,
             height: this.regionHeight,
             top: this.marginTop
         });
