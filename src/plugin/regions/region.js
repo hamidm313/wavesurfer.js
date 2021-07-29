@@ -32,7 +32,7 @@ export class Region {
         this.isResizing = false;
         this.isDragging = false;
         this.loop = Boolean(params.loop);
-        this.color = params.color || 'rgba(255, 255, 255, 1)';
+        this.color = params.color || 'rgba(255, 255, 255, 0.5)';
         // The left and right handleStyle properties can be set to 'none' for
         // no styling or can be assigned an object containing CSS properties.
         this.handleStyle = params.handleStyle || {
@@ -174,6 +174,7 @@ export class Region {
             this.wrapper.appendChild(document.createElement('region')),
             this.vertical
         );
+        this.element.waveSvg = this.element.appendChild(this.wavesurfer.drawer.waveSvg.cloneNode(true));
 
         this.element.className = 'wavesurfer-region';
         if (this.showTooltip) {
@@ -192,7 +193,8 @@ export class Region {
             position: 'absolute',
             zIndex: 99,
             height: this.regionHeight,
-            top: this.marginTop
+            top: this.marginTop,
+            overflow: 'hidden'
         });
 
         /* Resize handles */
@@ -257,8 +259,8 @@ export class Region {
         return (start == end ? [start] : [start, end])
             .map((time) =>
                 [
-                    ('00' + Math.floor((time % 3600) / 60)).slice(-2),  // minutes
-                    ('00' + Math.floor(time % 60)).slice(-2)            // seconds
+                    ('00' + Math.floor((time % 3600) / 60)).slice(-2), // minutes
+                    ('00' + Math.floor(time % 60)).slice(-2) // seconds
                 ].join(':')
             )
             .join('-');
@@ -302,8 +304,14 @@ export class Region {
             this.style(this.element, {
                 left: left + 'px',
                 width: regionWidth + 'px',
-                backgroundColor: this.color,
+                backgroundColor: 'rgba(255, 255, 255, 0)', // this.color,
                 cursor: this.drag ? 'move' : 'default'
+            });
+
+            this.style(this.element.waveSvg, {
+                left: -left + 'px',
+                width: width + 'px',
+                fill: this.color
             });
 
             for (const attrname in this.attributes) {

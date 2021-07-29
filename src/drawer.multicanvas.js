@@ -89,6 +89,8 @@ export default class MultiCanvas extends Drawer {
          * @type {boolean}
          */
         this.vertical = params.vertical;
+
+        this.waveSvg = null;
     }
 
     /**
@@ -179,8 +181,22 @@ export default class MultiCanvas extends Drawer {
         const leftOffset = this.maxCanvasElementWidth * this.canvases.length;
 
         // wave
+        let waveCanvas = document.createElement('canvas');
+        this.waveSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        this.style(this.waveSvg, {
+            position: 'absolute',
+            // top: '0px',
+            // bottom: '0px',
+            height: '100%' //,
+            // pointerEvents: 'none',
+            // width: '835px',
+            // fill: url(#grad2)
+        });
+        // this.waveSvg.innerHTML = '<defs><linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color: hsl(34, 78%, 91%);stop-opacity: 1;"></stop><stop offset="100%" style="stop-color: hsl(34, 78%, 91%);stop-opacity: .5;"></stop></linearGradient></defs>'
+        this.waveSvg.classList.add("waveSvg");
+
         let wave = util.withOrientation(
-            this.wrapper.appendChild(document.createElement('canvas')),
+            this.wrapper.appendChild(waveCanvas),
             this.params.vertical
         );
         this.style(wave, {
@@ -196,8 +212,9 @@ export default class MultiCanvas extends Drawer {
 
         // progress
         if (this.hasProgressCanvas) {
+            let progressCanvas = document.createElement('canvas');
             let progress = util.withOrientation(
-                this.progressWave.appendChild(document.createElement('canvas')),
+                this.progressWave.appendChild(progressCanvas),
                 this.params.vertical
             );
             this.style(progress, {
@@ -445,6 +462,16 @@ export default class MultiCanvas extends Drawer {
                     intersection.y2 - intersection.y1,
                     radius
                 );
+
+                let svgrect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+                svgrect.setAttribute('xmlns', "http://www.w3.org/2000/svg");
+                svgrect.setAttribute('x', intersection.x1 - leftOffset);
+                svgrect.setAttribute('y', intersection.y1);
+                svgrect.setAttribute('width', intersection.x2 - intersection.x1);
+                svgrect.setAttribute('height', intersection.y2 - intersection.y1);
+                svgrect.setAttribute('rx', radius); // The horizontal corner radius of the rect. Defaults to ry if it is specified.
+                // svgrect.setAttribute('ry', radius); // The vertical corner radius of the rect. Defaults to rx if it is specified.
+                this.waveSvg.appendChild(svgrect);
             }
         }
     }
