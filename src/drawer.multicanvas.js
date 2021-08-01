@@ -180,13 +180,13 @@ export default class MultiCanvas extends Drawer {
         entry.halfPixel = this.halfPixel;
         const leftOffset = this.maxCanvasElementWidth * this.canvases.length;
 
-        // wave
-        let waveCanvas = document.createElement('canvas');
+        // waveSvg
+        this.waveSvg = null;
         this.waveSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         this.style(this.waveSvg, {
             position: 'absolute',
-            // top: '0px',
-            // bottom: '0px',
+            top: '0px',
+            bottom: '0px',
             height: '100%' //,
             // pointerEvents: 'none',
             // width: '835px',
@@ -195,6 +195,8 @@ export default class MultiCanvas extends Drawer {
         // this.waveSvg.innerHTML = '<defs><linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color: hsl(34, 78%, 91%);stop-opacity: 1;"></stop><stop offset="100%" style="stop-color: hsl(34, 78%, 91%);stop-opacity: .5;"></stop></linearGradient></defs>'
         this.waveSvg.classList.add("waveSvg");
 
+        // wave
+        let waveCanvas = document.createElement('canvas');
         let wave = util.withOrientation(
             this.wrapper.appendChild(waveCanvas),
             this.params.vertical

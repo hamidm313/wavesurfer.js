@@ -174,7 +174,7 @@ export class Region {
             this.wrapper.appendChild(document.createElement('region')),
             this.vertical
         );
-        this.element.waveSvg = this.element.appendChild(this.wavesurfer.drawer.waveSvg.cloneNode(true));
+        // this.element.waveSvg = this.element.appendChild(this.wavesurfer.drawer.waveSvg.cloneNode(true));
 
         this.element.className = 'wavesurfer-region';
         if (this.showTooltip) {
@@ -308,6 +308,14 @@ export class Region {
                 cursor: this.drag ? 'move' : 'default'
             });
 
+            let thisSvg = this.element.querySelector("svg");
+            console.log({updateRenderWaveSvg: thisSvg});
+            if (thisSvg !== null && thisSvg !== undefined && thisSvg !== "undefined") {
+                thisSvg.remove();
+            }
+            // this.element.waveSvg = this.wavesurfer.drawer.waveSvg.cloneNode(true)
+            this.element.waveSvg = this.element.appendChild(this.wavesurfer.drawer.waveSvg.cloneNode(true));
+            console.log({updateRender: "fired"});
             this.style(this.element.waveSvg, {
                 left: -left + 'px',
                 width: width + 'px',
