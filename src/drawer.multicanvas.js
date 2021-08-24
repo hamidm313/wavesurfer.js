@@ -187,7 +187,8 @@ export default class MultiCanvas extends Drawer {
             position: 'absolute',
             top: '0px',
             bottom: '0px',
-            height: '100%' //,
+            height: '100%',
+            maxHeight: '100%' //,
             // pointerEvents: 'none',
             // width: '835px',
             // fill: url(#grad2)
