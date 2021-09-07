@@ -273,6 +273,11 @@ export default class MultiCanvas extends Drawer {
 
         // style element
         this.style(this.progressWave, { display: 'block' });
+
+        // waveSvg
+        // this.waveSvg.setAttribute("viewBox", "0 0 " + this.params.pixelRatio * this.width + " " + this.params.pixelRatio * this.height);
+        this.waveSvg.setAttribute("viewBox", "0 0 " + this.width + " " + this.height);
+        // console.log(this.params.pixelRatio, this.width, this.height);
     }
 
     /**
