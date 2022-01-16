@@ -309,13 +309,11 @@ export class Region {
             });
 
             let thisSvg = this.element.querySelector("svg");
-            console.log({updateRenderWaveSvg: thisSvg});
             if (thisSvg !== null && thisSvg !== undefined && thisSvg !== "undefined") {
                 thisSvg.remove();
             }
             // this.element.waveSvg = this.wavesurfer.drawer.waveSvg.cloneNode(true)
             this.element.waveSvg = this.element.appendChild(this.wavesurfer.drawer.waveSvg.cloneNode(true));
-            console.log({updateRender: "fired"});
             this.style(this.element.waveSvg, {
                 left: -left + 'px',
                 width: width + 'px',
